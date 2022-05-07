@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  body {
+    @apply bg-gray-200
+  }
+  li {
+    @apply box-border
+  }
+  th {
+    @apply font-bold !important
+  }
+}
+
+@layer components{
+    .navitem {
+      @apply text-xl px-2
+    }
+    .navitem.selected {
+      @apply border-b-4 border-blue-600 transition duration-300 font-bold
+    }
+    .modal {
+      @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-[400px] shadow-2xl border-2 p-3
+    }
+    .removeAnimation {
+      @apply transition-all opacity-0 bg-red-600 duration-300 ease-in
+    }
+}
