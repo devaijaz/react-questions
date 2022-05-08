@@ -1,5 +1,5 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import React from "react";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { ThemeSwitch } from "./ThemeSwitch";
 
 export const Header = () => {
