@@ -17,7 +17,7 @@ export const Q2 = () => {
     <div>
       <Paper>
         <div className="px-2 py-2 flex justify-end border-b">
-          <Button variant="contained" startIcon={<AddIcon />} onClick={(e) => setOpen(true)}>
+          <Button startIcon={<AddIcon />} onClick={(e) => setOpen(true)}>
             Add
           </Button>
         </div>
