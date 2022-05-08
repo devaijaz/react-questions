@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import {
   TableContainer,
   Paper,
@@ -6,13 +7,14 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Typography,
+  Box,
 } from "@mui/material";
-import React, { useEffect} from "react";
 import { useAppContext } from "../../context";
 import { Ticket } from "../../types";
 import { Tickets } from "../Tickets";
 
-const printToConsole = (tickets: Ticket[], total:number) => {
+const printToConsole = (tickets: Ticket[], total: number) => {
   tickets.forEach((row) => {
     console.log(
       row.product,
@@ -22,26 +24,20 @@ const printToConsole = (tickets: Ticket[], total:number) => {
   });
   console.log(
     "Grand Total",
-    tickets.reduce(
-      (accumulator, row) => row.quantity * row.unitPrice + accumulator,
-      0
-    )
+    tickets.reduce((accumulator, row) => row.quantity * row.unitPrice + accumulator, 0)
   );
 };
 
 export const Q1 = () => {
-
-  const {tickets, total} = useAppContext();
-  useEffect(()=> {
-    printToConsole(tickets, total)
-  }, [tickets, total])
+  const { tickets, total } = useAppContext();
+  useEffect(() => {
+    printToConsole(tickets, total);
+  }, [tickets, total]);
 
   return (
     <div>
-      <Tickets/>
-      <p className="mb-2 text-orange-600 text-xl">
-        Open the console window to see the printed tickets
-      </p>
+      <Tickets />
+      <Typography>Open the console window to see the printed tickets</Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -66,9 +62,9 @@ export const Q1 = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div className="flex items-end bg-white justify-end px-2">
-        <span className="font-bold text-lg">Grand Total: {total}</span>
-      </div>
+      <Box className="flex items-end justify-end px-2">
+        <Typography className="font-bold text-lg">Grand Total: {total}</Typography>
+      </Box>
     </div>
   );
 };

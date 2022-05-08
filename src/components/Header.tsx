@@ -1,18 +1,22 @@
-import { AppBar, Toolbar, Typography } from '@mui/material'
-import React from 'react'
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import React from "react";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 export const Header = () => {
   return (
     <AppBar
       elevation={1}
       sx={{
-        position: 'relative'
+        position: "relative",
       }}
     >
       <Toolbar>
-        <Typography variant="h6" color="inherit" noWrap>
+        <Typography variant="h6" noWrap>
           Cynax Labs
         </Typography>
+        <Box sx={{ flexGrow: 1 }}></Box>
+        <ThemeSwitch />
       </Toolbar>
-    </AppBar>  )
-}
+    </AppBar>
+  );
+};

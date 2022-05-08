@@ -1,5 +1,6 @@
+import React, { useMemo } from "react";
+import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Q1 } from "./components/questions/Q1";
@@ -9,28 +10,29 @@ import { Q4 } from "./components/questions/Q4";
 import { Q5 } from "./components/questions/Q5";
 import { ContextProvider, useThemeContext } from "./context";
 
-
-
 function App() {
-  const {darkMode} = useThemeContext();
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? "dark": "light",
-      primary: {
-        main: "#EBAFE",
-        light: "#5E7BFD",
-        dark: "#3A53A2",
+  const { darkMode } = useThemeContext();
+  const theme = useMemo(() => {
+    return createTheme({
+      palette: {
+        mode: darkMode ? "dark" : "light",
+        primary: {
+          main: "#EBAFE",
+          light: "#5E7BFD",
+          dark: "#3A53A2",
+        },
+        secondary: {
+          main: "#EBD4F7",
+          light: "#FFC5F6",
+          dark: "#FF9FB1",
+        },
       },
-      secondary: {
-        main: "#EBD4F7",
-        light: "#FFC5F6",
-        dark: "#FF9FB1",
-      },
-    },
-  });
+    });
+  }, [darkMode]);
   return (
     <ContextProvider>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <AppRoutes />
       </ThemeProvider>
     </ContextProvider>
