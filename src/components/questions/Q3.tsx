@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Q3 = () => {
+const Q3 = () => {
   return (
     <div>
       <b>Question 3</b>
@@ -15,3 +15,5 @@ export const Q3 = () => {
     </div>
   );
 };
+
+export default Q3;

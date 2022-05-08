@@ -3,7 +3,8 @@ import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined
 import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
 import { Box, Paper } from "@mui/material";
 import { useThemeContext } from "../../context";
-export const Q5 = () => {
+
+const Q5 = () => {
   const { darkMode } = useThemeContext();
   return (
     <>
@@ -34,11 +35,11 @@ export const Q5 = () => {
         </div>
         <Graph2 />
       </Paper>
-      <p className="mt-4 text-2xl">
+      <div className="mt-4 text-2xl">
         <span className="text-red-600">Note:</span>I couldn't find the similar icon as per given in
         Question PDF File.
-        <div>The charts has been created using HTML div.</div>
-      </p>
+        <p>The charts has been created using HTML div.</p>
+      </div>
     </>
   );
 };
@@ -93,7 +94,7 @@ const Graph2 = () => {
     <Box
       className="rounded-md p-2 max-w-[90%] ml-2"
       sx={(theme) => ({
-        backgroundColor: darkMode ? null : "white",
+        backgroundColor: darkMode ? "black" : "white",
       })}
     >
       <div className="flex gap-4 items-center">
@@ -124,3 +125,5 @@ const Graph2 = () => {
     </Box>
   );
 };
+
+export default Q5;

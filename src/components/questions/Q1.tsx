@@ -10,6 +10,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+
 import { useAppContext } from "../../context";
 import { Ticket } from "../../types";
 import { Tickets } from "../Tickets";
@@ -28,7 +29,7 @@ const printToConsole = (tickets: Ticket[], total: number) => {
   );
 };
 
-export const Q1 = () => {
+const Q1 = () => {
   const { tickets, total } = useAppContext();
   useEffect(() => {
     printToConsole(tickets, total);
@@ -68,3 +69,5 @@ export const Q1 = () => {
     </div>
   );
 };
+
+export default Q1;
