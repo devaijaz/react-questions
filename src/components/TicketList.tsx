@@ -1,16 +1,13 @@
 import React, { FC, useState } from "react";
-import { Paper, Button, List, ListItem, IconButton, ListItemText } from "@mui/material";
+import { Paper, Button, IconButton } from "@mui/material";
 import { AddTicketModal } from "./AddTicketModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppContext } from "../context";
+import { ListProps } from "../types";
 
-type Props = {
-  deletable?: boolean;
-};
-
-export const TicketList: FC<Props> = ({ deletable = false }) => {
-  const { tickets, removeTicket } = useAppContext();
+export const TicketList: FC<ListProps> = ({ deletable = false, animation = false, tickets }) => {
+  const { removeTicket } = useAppContext();
   const [open, setOpen] = useState(false);
 
   const closeModal = React.useCallback(() => {
@@ -21,16 +18,22 @@ export const TicketList: FC<Props> = ({ deletable = false }) => {
     (id: string) => {
       return (e: React.MouseEvent<HTMLButtonElement>) => {
         if (!deletable) return;
+        if (!animation) {
+          removeTicket(id);
+          return;
+        }
         const li = e.currentTarget.parentElement?.parentElement;
         if (li) {
-          li.classList.add("removeAnimation");
           li.addEventListener("animationend", () => {
-            removeTicket(id);
+            setTimeout(function () {
+              removeTicket(id);
+            }, 0);
           });
+          li.classList.add("exitAnimation");
         }
       };
     },
-    [deletable, removeTicket]
+    [deletable, removeTicket, animation]
   );
 
   return (
@@ -41,28 +44,30 @@ export const TicketList: FC<Props> = ({ deletable = false }) => {
             Add
           </Button>
         </div>
-        <List className="relative">
+        <div className="relative ticketList">
           {tickets.map((ticket) => {
             return (
-              <ListItem
-                className="border-b"
+              <div
+                className={`flex justify-between items-center border-b p-[12px] ${
+                  animation ? "enterAnimation" : ""
+                }`}
                 key={ticket.id}
-                secondaryAction={
-                  deletable ? (
+              >
+                <div>
+                  <div>{`${ticket.product} - ${ticket.type}`}</div>
+                  <div>{`${ticket.unitPrice} X ${ticket.quantity}`}</div>
+                </div>
+                {deletable && (
+                  <div>
                     <IconButton onClick={removeItem(ticket.id)}>
                       <DeleteIcon />
                     </IconButton>
-                  ) : null
-                }
-              >
-                <ListItemText
-                  primary={`${ticket.product} - ${ticket.type}`}
-                  secondary={`${ticket.unitPrice} X ${ticket.quantity}`}
-                ></ListItemText>
-              </ListItem>
+                  </div>
+                )}
+              </div>
             );
           })}
-        </List>
+        </div>
       </Paper>
       {open && <AddTicketModal onClose={closeModal} />}
     </>

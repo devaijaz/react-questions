@@ -6,61 +6,7 @@ import { useThemeContext } from "../../context";
 
 const Q5 = () => {
   const { darkMode } = useThemeContext();
-  return (
-    <>
-      <Paper
-        className="max-w-[350px] p-2"
-        sx={(theme) => ({
-          backgroundColor: darkMode ? "rgba(0,0,0,0.2)" : "rgba(180,180,180,0.3)",
-        })}
-      >
-        <div className="flex p-2 gap-2 items-center flex-grow-0 w-auto">
-          <div className="iconDiv">
-            <Box
-              className="rounded-md p-2 text-blue-600"
-              sx={{ backgroundColor: () => (darkMode ? "black" : "white") }}
-            >
-              <PersonAddAlt1OutlinedIcon />
-            </Box>
-          </div>
-          <div className="rightDiv">
-            <div className="">Adverse effect & contraindications</div>
-            <div className="flex flex-grow w-full items-end justify-end space-x-[5px]">
-              <div className="text-lg font-bold justify-end block">546</div>
-              <div className="w-full mb-1">
-                <Graph1 />
-              </div>
-            </div>
-          </div>
-        </div>
-        <Graph2 />
-      </Paper>
-      <div className="mt-4 text-2xl">
-        <span className="text-red-600">Note:</span>I couldn't find the similar icon as per given in
-        Question PDF File.
-        <p>The charts has been created using HTML div.</p>
-      </div>
-    </>
-  );
-};
-
-const Graph1 = () => {
-  return (
-    <div className="flex flex-col">
-      <div className="flex space-x-[3px] h-[5px] w-2/3">
-        <div className="bg-gray-400 w-full rounded overflow-hidden">
-          <div className="bg-blue-600 w-[100%] h-full"></div>
-        </div>
-        <div className="bg-gray-400 w-full rounded overflow-hidden">
-          <div className="bg-orange-600 w-[25%] h-full"></div>
-        </div>
-      </div>
-    </div>
-  );
-};
-const Graph2 = () => {
-  const { darkMode } = useThemeContext();
-  const data = [
+  const component2Data = [
     {
       value1: 35,
       value2: 65,
@@ -91,9 +37,92 @@ const Graph2 = () => {
     },
   ];
   return (
+    <>
+      <Paper
+        className="max-w-[350px] p-2"
+        sx={(theme) => ({
+          backgroundColor: darkMode ? "rgba(0,0,0,0.2)" : "rgba(180,180,180,0.3)",
+        })}
+      >
+        <Component1
+          title="Adverse effect & contraindications"
+          value={546}
+          Icon={<PersonAddAlt1OutlinedIcon />}
+        />
+        <Component2
+          title="Similarity measures between molecules"
+          percentage={125}
+          trendPercentage={10}
+          Icon={<ArrowDropUpOutlinedIcon />}
+          data={component2Data}
+        />
+      </Paper>
+      <div className="mt-4 text-2xl">
+        <span className="text-red-600">Note:</span>I couldn't find the similar icon as per given in
+        Question PDF File.
+        <p>The charts has been created using HTML div.</p>
+      </div>
+    </>
+  );
+};
+
+type Component1Props = {
+  title: string;
+  value: number;
+  Icon: React.ReactNode;
+};
+
+const Component1 = ({ title, value, Icon }: Component1Props) => {
+  const { darkMode } = useThemeContext();
+
+  return (
+    <div className="flex p-2 gap-2 items-center flex-grow-0 w-auto">
+      <div className="iconDiv">
+        <Box
+          className="rounded-md p-2 text-blue-600"
+          sx={{ backgroundColor: () => (darkMode ? "black" : "white") }}
+        >
+          {Icon}
+        </Box>
+      </div>
+      <div className="rightDiv">
+        <div className="">{title}</div>
+        <div className="flex flex-grow w-full items-end justify-end space-x-[5px]">
+          <div className="text-lg font-bold justify-end block">{value}</div>
+          <div className="w-full mb-1">
+            <div className="flex flex-col">
+              {/* Graph */}
+              <div className="flex space-x-[3px] h-[5px] w-2/3">
+                <div className="bg-gray-400 w-full rounded overflow-hidden">
+                  <div className="bg-blue-600 w-[100%] h-full"></div>
+                </div>
+                <div className="bg-gray-400 w-full rounded overflow-hidden">
+                  <div className="bg-orange-600 w-[25%] h-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+type Component2Props = {
+  title: string;
+  percentage: number;
+  trendPercentage: number;
+  Icon: React.ReactNode;
+  data: { value1: number; value2: number }[];
+};
+
+const Component2 = ({ title, percentage, trendPercentage, Icon, data }: Component2Props) => {
+  const { darkMode } = useThemeContext();
+
+  return (
     <Box
       className="rounded-md p-2 max-w-[90%] ml-2"
-      sx={(theme) => ({
+      sx={(_) => ({
         backgroundColor: darkMode ? "black" : "white",
       })}
     >
@@ -112,12 +141,12 @@ const Graph2 = () => {
           })}
         </div>
         <div className="">
-          <div className="">Similarity measures between molecules</div>
+          <div className="">{title}</div>
           <div className="flex gap-1 items-end">
-            <div className="text-lg font-bold justify-end block">125%</div>
+            <div className="text-lg font-bold justify-end block">{percentage}%</div>
             <div className="text-green-600">
-              <ArrowDropUpOutlinedIcon />
-              <span>10%</span>
+              {Icon}
+              <span>{trendPercentage}%</span>
             </div>
           </div>
         </div>
